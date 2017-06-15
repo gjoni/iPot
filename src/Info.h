@@ -10,8 +10,6 @@
 
 #include <vector>
 
-//const char DATADIR[] = "/home/ivan/Projects/CLASHES/random/data";
-
 const char AAA1[] = { 'A', 'R', 'N', 'D', 'C', 'Q', 'E', 'G', 'H', 'I', 'L',
 		'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V', 'B', 'J', 'Z', 'X', 'X' };
 
