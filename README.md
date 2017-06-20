@@ -18,12 +18,18 @@ constants at atomic and residue levels.
 ## Usage
 
 ### Atom-atom energies:
-* for a single structure:
+
+Intrachain:
         ./aace -r <structure.pdb> -t <AACE_TYPE> -d <dmax> -k <kmin>
-        
-aace - atom-atom contact energies
 
-rrce - residue-residue contact energies
+Interchain:
+        ./aace -r <receptor.pdb> -l <ligand.pdb> -t <AACE_TYPE> -d <dmax> -k <kmin>
 
+### Residue-residue energies:
+
+        ./rrce -r <structure.pdb> -t <RRCE_TYPE> -d <dmax> -k <kmin>
+        ./rrce -r <receptor.pdb> -l <ligand.pdb> -t <RRCE_TYPE> -d <dmax> -k <kmin>
+
+## References
 [1] I Anishchenko, PJ Kundrotas, IA Vakser. Contact energies in proteins and 
     protein complexes inferred from the Potts model. (2017) In preparation
