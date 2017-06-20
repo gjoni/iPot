@@ -43,7 +43,7 @@ interchain:
 
 ## Links
 
-* [Vakser Lab] (http://vakser.compbio.ku.edu/main/)
+* [Vakser Lab](http://vakser.compbio.ku.edu/main/)
 
 ## References
 [1] I Anishchenko, PJ Kundrotas, IA Vakser. Contact energies in proteins and 
