@@ -10,6 +10,11 @@ statistical mechanics problem applied to the Potts model. Its solution by
 pseudo-likelihood maximization provides consistent estimates of coupling 
 constants at atomic and residue levels.
 
+## Installation
+
+        make
+        make install
+
 aace - atom-atom contact energies
 
 rrce - residue-residue contact energies
