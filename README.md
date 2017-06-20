@@ -15,6 +15,12 @@ constants at atomic and residue levels.
         make
         make install
 
+## Usage
+
+### Atom-atom energies:
+* for a single structure:
+        ./aace -r <structure.pdb> -t <AACE_TYPE> -d <dmax> -k <kmin>
+        
 aace - atom-atom contact energies
 
 rrce - residue-residue contact energies
