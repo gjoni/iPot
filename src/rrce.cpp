@@ -26,7 +26,7 @@
 
 //#include "AACE.h"
 #include "RRCE.h"
-#include "EigenRRCE.h"
+//#include "EigenRRCE.h"
 
 #define SLEN 1000
 
@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
 		J[i] = (double*) malloc(20 * sizeof(double));
 	}
 	RRCE_.GetCouplings(J);
-	EigenRRCE Eigen(J);
+	//EigenRRCE Eigen(J);
 
 	/*
 	for (int i = 1; i <= 20; i++) {
@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
 				Eigen.GetReconstructionCorrel(i));
 	}
 	*/
-	Eigen.GetReconstructionCorrel(8);
+	//Eigen.GetReconstructionCorrel(8);
 
 	return 0;
 
