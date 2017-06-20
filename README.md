@@ -17,22 +17,7 @@ constants at atomic and residue levels.
         make
         make install
 
-### Download database and set path
 
-
-## Usage
-
-### Atom-atom energies:
-
-Intrachain:
-
-        ./aace -r <structure.pdb> -t <AACE_TYPE> -d <dmax> -k <kmin>
-
-Interchain:
-
-        ./aace -r <receptor.pdb> -l <ligand.pdb> -t <AACE_TYPE> -d <dmax> -k <kmin>
-
-### Residue-residue energies:
 
         ./rrce -r <structure.pdb> -t <RRCE_TYPE> -d <dmax> -k <kmin>
         ./rrce -r <receptor.pdb> -l <ligand.pdb> -t <RRCE_TYPE> -d <dmax> -k <kmin>
