@@ -1,2 +1,2 @@
-# aace
-A program to calculate inter- and intra-protein energies.
+# aace-rrce
+A simple program to calculate inter- and intra-protein energies.
