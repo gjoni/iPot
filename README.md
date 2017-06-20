@@ -41,6 +41,10 @@ interchain:
         ./rrce -r <structure.pdb> -t <RRCE_TYPE> -d <dmax> -k <kmin>
         ./rrce -r <receptor.pdb> -l <ligand.pdb> -t <RRCE_TYPE> -d <dmax> -k <kmin>
 
+## Links
+
+* [Vakser Lab] (http://vakser.compbio.ku.edu/main/)
+
 ## References
 [1] I Anishchenko, PJ Kundrotas, IA Vakser. Contact energies in proteins and 
     protein complexes inferred from the Potts model. (2017) In preparation
