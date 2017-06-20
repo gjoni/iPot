@@ -24,9 +24,7 @@
 
 #include <cstring>
 
-//#include "AACE.h"
 #include "RRCE.h"
-//#include "EigenRRCE.h"
 
 #define SLEN 1000
 

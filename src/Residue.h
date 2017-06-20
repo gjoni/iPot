@@ -64,7 +64,7 @@ public:
 	Residue& operator=(const Residue &source); /* assignment operator */
 
 	/* TODO: implement saving in PDB */
-	void Save(const char *name);
+	//void Save(const char *name);
 
 };
 
