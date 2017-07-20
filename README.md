@@ -15,10 +15,11 @@ constants at atomic and residue levels.
 
 ## Installation
 
-### Compilation
+### Program download and compilation
 
+        git clone https://github.com/gjoni/aace-rrce
+        cd aace-rrce
         make
-        make install
 
 ### Download databases and set path
 
