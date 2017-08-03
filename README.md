@@ -42,6 +42,10 @@ interchain:
         ./rrce -r <structure.pdb> -t <RRCE_TYPE> -d <dmax> -k <kmin>
         ./rrce -r <receptor.pdb> -l <ligand.pdb> -t <RRCE_TYPE> -d <dmax> -k <kmin>
 
+## Acknowledgements
+
+This package uses kdtree routine by John Tsiombikas <nuclear@member.fsf.org> available at https://github.com/jtsiomb/kdtree.
+
 ## Links
 
 * [Vakser Lab](http://vakser.compbio.ku.edu/main/)
