@@ -15,10 +15,11 @@ constants at atomic and residue levels.
 
 ## Installation
 
-### Compilation
+### Program download and compilation
 
+        git clone https://github.com/gjoni/aace-rrce
+        cd aace-rrce
         make
-        make install
 
 ### Download databases and set path
 
@@ -45,6 +46,10 @@ intrachain:
 interchain:
 
         ./rrce -r <receptor.pdb> -l <ligand.pdb> -t <RRCE_TYPE> -d <dmax> -k <kmin>
+
+## Acknowledgements
+
+This package uses kdtree routine by John Tsiombikas <nuclear@member.fsf.org> available at https://github.com/jtsiomb/kdtree.
 
 ## Links
 
