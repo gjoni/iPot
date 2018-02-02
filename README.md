@@ -1,7 +1,7 @@
 # aace-rrce
 
 A set of programs to calculate inter- and intra- protein contact energies using 
-atom-atom and residue-residue statistical potentials.
+atom-atom and residue-residue statistical potentials [1].
 
 ### Description
 
@@ -38,7 +38,12 @@ interchain:
 
 ### Calculate residue-residue energies
 
+intrachain:
+
         ./rrce -r <structure.pdb> -t <RRCE_TYPE> -d <dmax> -k <kmin>
+
+interchain:
+
         ./rrce -r <receptor.pdb> -l <ligand.pdb> -t <RRCE_TYPE> -d <dmax> -k <kmin>
 
 ## Links
@@ -46,5 +51,5 @@ interchain:
 * [Vakser Lab](http://vakser.compbio.ku.edu/main/)
 
 ## References
-[1] I Anishchenko, PJ Kundrotas, IA Vakser. Contact energies in proteins and 
-    protein complexes inferred from the Potts model. (2017) In preparation
+[1] I Anishchenko, PJ Kundrotas, IA Vakser. Contact potential for structure prediction 
+of proteins and protein complexes from Potts model. (2018) In preparation

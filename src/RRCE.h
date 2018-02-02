@@ -1,10 +1,8 @@
 /*****************************************************************************
  *
- * 2016, Ivan Anishchenko <anishchenko.ivan@gmail.com>
+ * Ivan Anishchenko <anishchenko.ivan@gmail.com>
  *
- * Vakser Lab,
- * Center for Computational biology,
- * University of Kansas
+ * 2013-2016, Vakser Lab, Center for Computational biology, University of Kansas
  *
  * V20170601 - support for copying h,J to external arrays
  * V20160527

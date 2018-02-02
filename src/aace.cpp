@@ -3,7 +3,6 @@
  * Ivan Anishchenko <anishchenko.ivan@gmail.com>
  *
  * 2013-2016, Vakser Lab, Center for Computational biology, University of Kansas
- * 2016-2017, Baker Lab, Department of Biochemistry, University of Washington
  *
  *****************************************************************************
  *

@@ -1,8 +1,8 @@
 /*
- * Chain.h
+ * Ivan Anishchenko <anishchenko.ivan@gmail.com>
  *
- *  Created on: Jun 3, 2014
- *      Author: ivan
+ * 2013-2016, Vakser Lab, Center for Computational biology, University of Kansas
+ *
  */
 
 #ifndef CHAIN_H_
