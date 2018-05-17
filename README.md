@@ -4,7 +4,7 @@
 atom-atom and residue-residue statistical contact potentials derived from the Potts model [1].
 
 ```
-aace18    - atomic contact energies (18 atom types from Ref. [2](https://www.sciencedirect.com/science/article/pii/S0022283696908591))
+aace18    - atomic contact energies (18 atom types from Ref. [2])
 aace20    - atomic contact energies (20 types, all heavy atoms in a residue belong to one type)
 aace167   - atomic contact energies (167 types, all heavy atoms in a residue belong to different types)
 rrce20    - contact energies between residue centroids
@@ -67,7 +67,7 @@ Options:  -r receptor.pdb \  # PDB file with receptor's coordinates
 [1] I Anishchenko, PJ Kundrotas, IA Vakser. Contact potential for structure prediction 
 of proteins and protein complexes from Potts model. (2018) In preparation
 
-[2] C Zhang, G Vasmatzis, JL Cornette, C DeLisi. Determination of atomic 
+[2](https://www.sciencedirect.com/science/article/pii/S0022283696908591) C Zhang, G Vasmatzis, JL Cornette, C DeLisi. Determination of atomic 
 desolvation energies from the structures of crystallized proteins. (1997) 
 J Mol Biol. 267(3): 707-6
 
