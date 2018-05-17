@@ -4,16 +4,16 @@
 atom-atom and residue-residue statistical contact potentials derived from the Potts model [1].
 
 ```
-rrce20 - contact energies between residue centroids
-aace18 - atomic contact energies (18 atom types from Ref. [2])
-aace20 - atomic contact energies (20 atom types, all heavy atoms in a residue belong to one type)
-aace167 - atomic contact energies (167 atom types, all heavy atoms in a residue belong to different types)
+**rrce20** - contact energies between residue centroids
+**aace18** - atomic contact energies (18 atom types from Ref. [2])
+**aace20** - atomic contact energies (20 atom types, all heavy atoms in a residue belong to one type)
+**aace167** - atomic contact energies (167 atom types, all heavy atoms in a residue belong to different types)
 ```
 
 
 ### Description
 
-_iPot_ Residue-residue and atom-atom contact energies were derived by maximizing the 
+Residue-residue and atom-atom contact energies were derived by maximizing the 
 probability of observing native sequences in a non-redundant set of 6,319 
 high-res protein structures. The optimization task was formulated as an inverse 
 statistical mechanics problem applied to the Potts model. Its solution by 
