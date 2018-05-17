@@ -1,11 +1,19 @@
-# aace-rrce
+# iPot
 
 A set of programs to calculate inter- and intra- protein contact energies using 
-atom-atom and residue-residue statistical potentials [1].
+atom-atom and residue-residue statistical contact potentials [1].
+
+```
+rrce20 - contact energies between residue centroids
+aace18 - atomic contact energies, 18 atom types [2]
+aace20 - atomic contact energies, all heavy atoms in a residue belong to one type
+aace167 - atomic contact energies, all heavy atoms in a residue belong to different types
+```
+
 
 ### Description
 
-Residue-residue and atom-atom contact energies were derived by maximizing the 
+_iPot_ Residue-residue and atom-atom contact energies were derived by maximizing the 
 probability of observing native sequences in a non-redundant set of 6,319 
 high-res protein structures. The optimization task was formulated as an inverse 
 statistical mechanics problem applied to the Potts model. Its solution by 
@@ -17,13 +25,13 @@ constants at atomic and residue levels.
 
 ### Program download and compilation
 
-        git clone https://github.com/gjoni/aace-rrce
-        cd aace-rrce
-        make
+```
+git clone https://github.com/gjoni/aace-rrce
+cd aace-rrce
+make
+```
 
-### Download databases and set path
-
-        export TMDOCKDAT=/path/to/database
+### Download databases (optional)
 
 ## Usage
 
@@ -49,12 +57,15 @@ interchain:
 
 ## Acknowledgements
 
-This package uses kdtree routine by John Tsiombikas <nuclear@member.fsf.org> available at https://github.com/jtsiomb/kdtree.
+ - [kdtree library](https://github.com/jtsiomb/kdtree) by John Tsiombikas
 
 ## Links
 
-* [Vakser Lab](http://vakser.compbio.ku.edu/main/)
+ - [Vakser Lab](http://vakser.compbio.ku.edu/main/)
 
 ## References
 [1] I Anishchenko, PJ Kundrotas, IA Vakser. Contact potential for structure prediction 
 of proteins and protein complexes from Potts model. (2018) In preparation
+[2] C Zhang, G Vasmatzis, JL Cornette, C DeLisi. Determination of atomic 
+desolvation energies from the structures of crystallized proteins. (1997) 
+J Mol Biol. 267(3): 707-6
