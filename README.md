@@ -1,13 +1,13 @@
 # iPot
 
 **iPot** (from **i**nverse **Pot**ts) - a set of programs to calculate inter- and intra- protein contact energies using 
-atom-atom and residue-residue statistical contact potentials [1].
+atom-atom and residue-residue statistical contact potentials derived from the Potts model [1].
 
 ```
 rrce20 - contact energies between residue centroids
-aace18 - atomic contact energies, 18 atom types [2]
-aace20 - atomic contact energies, all heavy atoms in a residue belong to one type
-aace167 - atomic contact energies, all heavy atoms in a residue belong to different types
+aace18 - atomic contact energies (18 atom types from Ref. [2])
+aace20 - atomic contact energies (20 atom types, all heavy atoms in a residue belong to one type)
+aace167 - atomic contact energies (167 atom types, all heavy atoms in a residue belong to different types)
 ```
 
 
