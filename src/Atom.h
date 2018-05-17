@@ -1,8 +1,7 @@
 /*****************************************************************************
  *
- * Ivan Anishchenko <anishchenko.ivan@gmail.com>
- *
- * 2013-2016, Vakser Lab, Center for Computational biology, University of Kansas
+ * 2013-2016, Ivan Anishchenko <anishchenko.ivan@gmail.com>
+ * Vakser Lab, Center for Computational biology, The University of Kansas
  *
  * V20160216
  *
@@ -53,6 +52,8 @@ public:
 
 	/* METHODS */
 	Atom& operator=(const Atom &source); /* assignment operator */
+
+	static double Dist(const Atom &A, const Atom &B);
 
 };
 

@@ -1,10 +1,9 @@
 /*****************************************************************************
  *
- * Ivan Anishchenko <anishchenko.ivan@gmail.com>
+ * 2015-2016, Ivan Anishchenko <anishchenko.ivan@gmail.com>
+ * Vakser Lab, Center for Computational biology, The University of Kansas
  *
- * 2013-2016, Vakser Lab, Center for Computational biology, University of Kansas
- *
- * V20160215
+ * V20160810
  *
  *****************************************************************************/
 
@@ -44,7 +43,7 @@ public:
 	bool ntFlag; /* N-terminal */
 	bool ctFlag; /* C-terminal */
 
-	Atom *N, *CA, *C, *O; /* pointers to backbone N, CA, C, O */
+	Atom *N, *CA, *C, *O, *CB; /* pointers to backbone N, CA, C, O, CB */
 
 	/* CONSTRUCTORS */
 	Residue(); /* default constructor */
@@ -62,7 +61,13 @@ public:
 	Residue& operator=(const Residue &source); /* assignment operator */
 
 	/* TODO: implement saving in PDB */
-	//void Save(const char *name);
+	void Save(const char *name);
+
+	/* minimal distance between a pair of residues:
+	 * mode = 0  -  SC + BB
+	 *      = 1  -  SC
+	 *      = 2  -  BB */
+	static double MinDist(const Residue &R1, const Residue &R2, int mode = 0);
 
 };
 

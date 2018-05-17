@@ -9,6 +9,8 @@
 #define INFO_H_
 
 #include <vector>
+#include <map>
+#include <string>
 
 const char AAA1[] = { 'A', 'R', 'N', 'D', 'C', 'Q', 'E', 'G', 'H', 'I', 'L',
 		'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V', 'B', 'J', 'Z', 'X', 'X' };

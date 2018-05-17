@@ -12,6 +12,67 @@
 
 #include "AACE.h"
 
+AACE::AACE(const GROUPS_TYPE &GROUPS, const std::vector<double> &h_, 
+			const std::vector<std::vector<double> > &J_, 
+		double dmax_, const std::string &name_) : h(NULL), J(NULL), 
+		dmax(dmax_), name(name_) {
+
+	int dim = ReadGroups(GROUPS);
+	Allocate(dim);
+
+	assert((int)h_.size() == dim);
+	assert((int)J_.size() == dim);
+	assert((int)J_[0].size() == dim);
+
+	for (int i = 0; i < dim; i++) {
+		h[i] = h_[i];
+		for (int j = 0; j < dim; j++) {
+			J[i][j] = J_[i][j];
+		}
+	}
+
+}
+
+AACE::AACE(const GROUPS_TYPE &GROUPS, double dmax_, 
+		const std::string &name_) : 
+		h(NULL), J(NULL), dmax(dmax_), name(name_) {
+
+	int dim = ReadGroups(GROUPS);
+	Allocate(dim);
+
+	FILE *F = fopen(name.c_str(), "r");
+	if (F == NULL) {
+		printf("Error: cannot open table file %s\n", name.c_str());
+		exit(1);
+	}
+
+	const int STRMAX = 10000;
+	char buf[STRMAX];
+
+	int N = 0;
+	
+	while (fgets(buf, STRMAX, F)) {
+		N++;
+	}
+	rewind(F);
+	
+	assert(N == dim);
+
+	for (int i = 0; i < N; i++) {
+		fgets(buf, STRMAX, F);
+		char * pch;
+		pch = strtok(buf, " "); /* label */
+		pch = strtok(NULL, " "); /* local field */
+		h[i] = atof(pch);
+		for (int j = 0; j < N; j++) {
+			pch = strtok(NULL, " ");
+			J[i][j] = atof(pch);
+		}
+	}
+	fclose(F);
+
+}
+
 AACE::AACE(AACE_TYPE type, double d, int k) :
 		h(NULL), J(NULL), dmax(d) {
 
@@ -180,6 +241,29 @@ int AACE::ReadGroups(const char *name) {
 
 }
 
+int AACE::ReadGroups(const GROUPS_TYPE &GROUPS) {
+
+	int n = 0;
+
+	for (auto g: GROUPS) {
+		std::map<std::string, int>::const_iterator it;
+		it = TYPE_IDX.find(g.second);
+		int t;
+		if (it == TYPE_IDX.end()) {
+			TYPE_IDX[g.second] = n;
+			//printf("%s %d\n", type, n);
+			t = n++;
+			//n++;
+		} else {
+			t = it->second;
+		}
+		ATOM_IDX[g.first] = t;
+	}
+
+	return TYPE_IDX.size();
+
+}
+
 int AACE::ReadCouplings(const char *name) {
 
 	FILE *F = fopen(name, "r");
@@ -199,11 +283,16 @@ int AACE::ReadCouplings(const char *name) {
 		pch = strtok(buf, " "); /* label */
 		pch = strtok(NULL, " "); /* local field */
 		h[i] = atof(pch);
+//		printf("%.5e, ", h[i]);
+		printf("{");
 		for (int j = 0; j < N; j++) {
 			pch = strtok(NULL, " ");
 			J[i][j] = atof(pch);
+			printf("%.5e, ", J[i][j]);
 		}
+		printf("}, \n");
 	}
+//	printf("\n");
 	fclose(F);
 
 	return 0;

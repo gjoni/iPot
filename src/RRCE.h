@@ -1,8 +1,10 @@
 /*****************************************************************************
  *
- * Ivan Anishchenko <anishchenko.ivan@gmail.com>
+ * 2016, Ivan Anishchenko <anishchenko.ivan@gmail.com>
  *
- * 2013-2016, Vakser Lab, Center for Computational biology, University of Kansas
+ * Vakser Lab,
+ * Center for Computational biology,
+ * University of Kansas
  *
  * V20170601 - support for copying h,J to external arrays
  * V20160527
@@ -16,6 +18,7 @@
 #include <string>
 #include <vector>
 
+#include "Chain.h"
 #include "Complex.h"
 
 class RRCE {
@@ -43,29 +46,33 @@ public:
 
 	RRCE(RRCE_TYPE type, double d, int k);
 	RRCE(const RRCE &source);
+	RRCE(const char *fname, double dmax_); /* TODO: test this constructor */
 	RRCE();
 
 	~RRCE();
 
 	RRCE& operator=(const RRCE &source);
 
-	/*
-	 * per chain
-	 */
+	std::string GetName();
+
+	/* intrachain energy */
 	double GetEnergy(const Chain &C);
 
-	/*
-	 * per complex
-	 */
-	double GetEnergy(const Complex &C); /* interaction energy */
-
-	std::string GetName();
+	/* interaction energy */
+	double GetEnergy(const Complex &C);
 
 	void GetCouplings(double **J);
 	void GetFields(double *h);
 
-	/* TODO 01June2017:
-	 *     - constructor for reading directly from file */
+	double GetJij(size_t i, size_t j) const {
+		return J[i][j];
+	}
+	;
+
+	double GetHi(size_t i) const {
+		return h[i];
+	}
+	;
 
 };
 

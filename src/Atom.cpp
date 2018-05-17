@@ -9,6 +9,7 @@
 
 #include <cstring>
 #include <cstdlib>
+#include <cmath>
 
 Atom::Atom() :
 		atomNum(1), altLoc(' '), x(0.0), y(0.0), z(0.0), occup(0.0), temp(0.0), residue(
@@ -89,3 +90,12 @@ char Atom::GetType(char name[]) {
 
 }
 
+double Atom::Dist(const Atom &A, const Atom &B) {
+
+	double x = A.x - B.x;
+	double y = A.y - B.y;
+	double z = A.z - B.z;
+
+	return sqrt(x * x + y * y + z * z);
+
+}

@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 					RRCE_.GetEnergy(Chain(rname)) :
 					RRCE_.GetEnergy(Complex(rname, lname));
 
-	printf("#E(%s)= %.5e\n", RRCE_.GetName().c_str(), E);
+	printf("E(%s)= %.5e\n", RRCE_.GetName().c_str(), E);
 
 	/*
 	 * (2) spectral decomposition

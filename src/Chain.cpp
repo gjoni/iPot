@@ -6,6 +6,7 @@
  */
 
 #include "Chain.h"
+#include "Info.h"
 
 #include <cmath>
 #include <cstring>
@@ -15,20 +16,27 @@
 #include <vector>
 
 Chain::Chain() :
-		atom(NULL), nAtoms(0), residue(NULL), nRes(0), chainId(' '), kd(NULL), kdCA(
+		atom(NULL), nAtoms(0), residue(NULL), nRes(0), kd(NULL), kdCA(
 		NULL), kdCent(NULL), ca_trace(NULL) {
 
 }
 
+Chain::Chain(const std::string &name) :
+		Chain(name.c_str()) {
+
+	/* */
+
+}
+
 Chain::Chain(const char *name) :
-		atom(NULL), nAtoms(0), residue(NULL), nRes(0), chainId(' '), kd(NULL), kdCA(
+		atom(NULL), nAtoms(0), residue(NULL), nRes(0), kd(NULL), kdCA(
 		NULL), kdCent(NULL), ca_trace(NULL) {
 
 	/* open file */
 	FILE *F;
 	F = fopen(name, "r");
 	if (F == NULL) {
-		fprintf(stderr, "ERROR: Can't open file %s\n", name);
+		fprintf(stderr, "ERROR: Can't open PDB file '%s'\n", name);
 		exit(1);
 	}
 
@@ -58,18 +66,40 @@ Chain::Chain(const char *name) :
 	}
 	fclose(F);
 
-	nAtoms = atomRecordVector.size();
-	if (nAtoms == 0) {
+	if (atomRecordVector.size() == 0) {
 		fprintf(stderr, "ERROR: No atoms were read from %s\n", name);
 		exit(1);
 	}
 
-	/* assign ChainID using the first atom */
-	chainId = atomRecordVector[0].chainId;
+	InitChain(atomRecordVector);
+
+	SetResMap();
+
+}
+
+Chain::Chain(const std::vector<std::string> &atoms_str) :
+		atom(NULL), nAtoms(0), residue(NULL), nRes(0), kd(NULL), kdCA(
+		NULL), kdCent(NULL), ca_trace(NULL) {
+
+	std::vector<AtomRecord> atomRecordVector(atoms_str.size());
+	char buf[81];
+	for (unsigned i = 0; i < atoms_str.size(); i++) {
+		strcpy(buf, atoms_str[i].c_str());
+		atomRecordVector[i] = ReadAtomRecord(buf);
+	}
+
+	InitChain(atomRecordVector);
+
+	SetResMap();
+
+}
+
+void Chain::InitChain(std::vector<AtomRecord> &atomRecordVector) {
 
 	/* define boundaries for all residues : insCode + resNum */
 	std::vector<int> first, last; /* residues boundaries */
 	first.push_back(0); /* first atom of the first residue */
+	nAtoms = atomRecordVector.size();
 	for (int i = 1; i < nAtoms; i++) {
 		if (atomRecordVector[i].insCode != atomRecordVector[i - 1].insCode
 				|| atomRecordVector[i].resNum
@@ -82,16 +112,34 @@ Chain::Chain(const char *name) :
 
 	assert(first.size() == last.size()); /* unexpectedly :-) */
 
-	/* set number of residues */
-	nRes = first.size();
+	/*
+	 * TODO: temp. solution for eliminating incomplete residues
+	 */
+	bool *fl = (bool*) calloc(first.size(), sizeof(bool));
+	nRes = 0;
+	for (unsigned i = 0; i < first.size(); i++) {
+		for (int j = first[i]; j <= last[i]; j++) {
+			if (strcmp(atomRecordVector[j].atomName, "CA") == 0) {
+				fl[i] = true;
+			}
+		}
+		nRes += fl[i];
+	}
 
 	/* initialize residues */
 	residue = new Residue[nRes];
-	for (int i = 0; i < nRes; i++) {
-		//residues[i] = Residue(atomRecordVector, first[i], last[i]);
-		residue[i] = Residue(atomRecordVector.begin() + first[i],
-				atomRecordVector.begin() + last[i]);
+	int idx = 0;
+	nAtoms = 0;
+	for (unsigned i = 0; i < first.size(); i++) {
+		if (fl[i]) {
+			residue[idx] = Residue(atomRecordVector.begin() + first[i],
+					atomRecordVector.begin() + last[i]);
+			//nAtoms += last[i] - first[i] + 1;
+			nAtoms += residue[idx].nAtoms;
+			idx++;
+		}
 	}
+	free(fl);
 
 	/* initialize pointers to atoms */
 	atom = new Atom*[nAtoms]; /* array of pointers to atoms */
@@ -111,8 +159,9 @@ Chain::Chain(const char *name) :
 }
 
 Chain::Chain(const Chain & source) :
-		atom(NULL), nAtoms(source.nAtoms), residue(NULL), nRes(source.nRes), chainId(
-				source.chainId), kd(NULL), kdCA(NULL), kdCent(NULL), ca_trace(
+		resmap(source.resmap), atom(NULL), nAtoms(source.nAtoms), residue(NULL), nRes(
+				source.nRes), kd(
+		NULL), kdCA(NULL), kdCent(NULL), ca_trace(
 		NULL) {
 
 	/* copy residues */
@@ -134,6 +183,8 @@ Chain::Chain(const Chain & source) :
 		ca_trace[i] = (double*) malloc(3 * sizeof(double));
 		memcpy(ca_trace[i], source.ca_trace[i], 3 * sizeof(double));
 	}
+
+	SetResMap();
 
 }
 
@@ -175,8 +226,6 @@ Chain & Chain::operator =(const Chain & source) {
 	}
 	free(ca_trace);
 
-	chainId = source.chainId;
-
 	/* copy residues */
 	nRes = source.nRes;
 	residue = new Residue[nRes];
@@ -191,6 +240,9 @@ Chain & Chain::operator =(const Chain & source) {
 	SetAtomPointers();
 
 	SetKD();
+
+	//resmap = source.resmap;
+	SetResMap();
 
 	/* initialize CA trace */
 	ca_trace = (double**) malloc(nRes * sizeof(double*));
@@ -208,6 +260,15 @@ Chain & Chain::operator =(const Chain & source) {
 AtomRecord Chain::ReadAtomRecord(char* str) {
 
 	AtomRecord A;
+
+	/* complete string to 80 characters */
+	char *pch = strpbrk(str, "\n");
+	if (pch != NULL && pch - str < 80) {
+		while (pch != str + 80) {
+			*pch++ = ' ';
+		}
+		*pch = '\0';
+	}
 
 	/*
 	 * reading PDB ATOM string in the reverse direction
@@ -378,6 +439,16 @@ void Chain::SetTermini() {
 
 }
 
+void Chain::SetResMap() {
+
+	resmap.clear();
+	for (int i = 0; i < nRes; i++) {
+		Residue *R = residue + i;
+		resmap[ { R->seqNum, R->insCode }] = R;
+	}
+
+}
+
 void Chain::SetKD() {
 
 	if (kd != NULL) {
@@ -403,6 +474,12 @@ void Chain::SetKD() {
 		/* kd */
 		for (int j = 0; j < residue[i].nAtoms; j++) {
 			A = &(residue[i].atom[j]);
+
+			/* exclude hydrogens from the tree */
+			if (A->type == 'H') {
+				continue;
+			}
+
 			kd_insert3(kd, A->x, A->y, A->z, atom + idx);
 			idx++;
 		}
@@ -475,20 +552,79 @@ void Chain::Save(const char *name) {
 
 	FILE *F = fopen(name, "w");
 	if (F == NULL) {
-		fprintf(stderr, "ERROR: Cannot open file %s\n", name);
+		fprintf(stderr, "ERROR: Cannot write to file '%s'\n", name);
+		return;
 	}
 	Atom *A;
 	for (int i = 0; i < nRes; ++i) {
 		for (int j = 0; j < residue[i].nAtoms; j++) {
 			A = &(residue[i].atom[j]);
-			fprintf(F,
-					"ATOM  %5d %4s%c%3s %c%4d%c   %8.3f%8.3f%8.3f%6.2f%6.2f%2s%2s\n",
-					A->atomNum, A->name, A->altLoc, residue[i].name,
-					residue[i].chainId, residue[i].seqNum, residue[i].insCode,
-					A->x, A->y, A->z, A->occup, A->temp, A->element, A->charge);
+			if (strlen(A->name) == 4 || A->name[0] == '1' || A->name[0] == '2'
+					|| A->name[0] == '3' || A->name[0] == '4') {
+				fprintf(F,
+						"ATOM  %5d %-4s%c%3s %c%4d%c   %8.3f%8.3f%8.3f%6.2f%6.2f          %2s%2s\n",
+						A->atomNum, A->name, A->altLoc, residue[i].name,
+						residue[i].chainId, residue[i].seqNum,
+						residue[i].insCode, A->x, A->y, A->z, A->occup, A->temp,
+						A->element, A->charge);
+			} else {
+				fprintf(F,
+						"ATOM  %5d  %-3s%c%3s %c%4d%c   %8.3f%8.3f%8.3f%6.2f%6.2f          %2s%2s\n",
+						A->atomNum, A->name, A->altLoc, residue[i].name,
+						residue[i].chainId, residue[i].seqNum,
+						residue[i].insCode, A->x, A->y, A->z, A->occup, A->temp,
+						A->element, A->charge);
+			}
 		}
 	}
 	fprintf(F, "TER\n");
 	fclose(F);
 
 }
+
+int Chain::IfProtein() {
+
+	int n = 0;
+	for (int i = 0; i < nRes; i++) {
+		n += (residue[i].type >= 0 && residue[i].type < 20);
+	}
+	return n;
+
+}
+
+std::string Chain::GetSequence() {
+
+	std::string seq;
+	for (int i = 0; i < nRes; i++) {
+		seq += AAA1[(int) residue[i].type];
+	}
+
+	return seq;
+
+}
+
+void Chain::Renumber(const std::vector<int> &num) {
+
+	assert((int )num.size() == nRes);
+
+	for (int i = 0; i < nRes; i++) {
+		residue[i].seqNum = num[i];
+		residue[i].insCode = ' ';
+	}
+
+	SetResMap();
+
+}
+
+Residue* Chain::GetResidue(int n, char ins) const {
+
+	std::map<std::pair<int, char>, Residue*>::const_iterator it;
+	it = resmap.find( { n, ins });
+	if (it == resmap.end()) {
+		return NULL;
+	} else {
+		return it->second;
+	}
+
+}
+
