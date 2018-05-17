@@ -22,7 +22,7 @@ cd aace-rrce
 make
 ```
 
-#### Download databases (optional)
+#### Download contact potentials database (optional)
 ```
 wget http://vakser.bioinformatics.ku.edu/resources/ipot/download/ipot_data.tar.gz
 tar xf ipot_data.tar.gz
@@ -30,7 +30,7 @@ tar xf ipot_data.tar.gz
 
 ## Usage
 
-By the example of `aace18` - other programs follow similar logic:
+By the example of `aace18` (other programs follow similar logic):
 
 ```
 Usage:   ./aace18 [-option] [argument]
@@ -41,25 +41,21 @@ Options:  -r receptor.pdb \  # PDB file with receptor's coordinates
           -d dmax            # (optional) contact distance, default dmax=6.8A
 ```
 
-### Calculate atom-atom energies
+##### Intrachain energy:
+```
+./aace18 -r example/1i2m_u1.pdb
+```
 
-intrachain:
+##### Interchain energy:
+```
+./aace18 -r example/1i2m_u1.pdb -l example/1i2m_u2.pdb
+```
 
-        ./aace -r <structure.pdb> -t <AACE_TYPE> -d <dmax> -k <kmin>
+##### Interchain energy using non-default energy table:
+```
+./aace18 -r example/1i2m_u1.pdb -l example/1i2m_u2.pdb -t /path/to/database/ipot_data/AACE18/table.8.0A_k4 -d 8.0
+```
 
-interchain:
-
-        ./aace -r <receptor.pdb> -l <ligand.pdb> -t <AACE_TYPE> -d <dmax> -k <kmin>
-
-### Calculate residue-residue energies
-
-intrachain:
-
-        ./rrce -r <structure.pdb> -t <RRCE_TYPE> -d <dmax> -k <kmin>
-
-interchain:
-
-        ./rrce -r <receptor.pdb> -l <ligand.pdb> -t <RRCE_TYPE> -d <dmax> -k <kmin>
 
 ## Acknowledgements
 
