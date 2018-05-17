@@ -57,13 +57,11 @@ Options:  -r receptor.pdb \  # PDB file with receptor's coordinates
 ```
 
 
-## Acknowledgements
-
- - [kdtree library](https://github.com/jtsiomb/kdtree) by John Tsiombikas
-
 ## Links
 
  - [Vakser Lab](http://vakser.compbio.ku.edu/main/)
+ - [kdtree library](https://github.com/jtsiomb/kdtree) by John Tsiombikas
+
 
 ## References
 [1] I Anishchenko, PJ Kundrotas, IA Vakser. Contact potential for structure prediction 
