@@ -1,6 +1,6 @@
 # iPot
 
-A set of programs to calculate inter- and intra- protein contact energies using 
+**iPot** (from **i**nverse **Pot**ts) - a set of programs to calculate inter- and intra- protein contact energies using 
 atom-atom and residue-residue statistical contact potentials [1].
 
 ```
