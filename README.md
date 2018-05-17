@@ -4,26 +4,17 @@
 atom-atom and residue-residue statistical contact potentials derived from the Potts model [1].
 
 ```
-**rrce20** - contact energies between residue centroids
-**aace18** - atomic contact energies (18 atom types from Ref. [2])
-**aace20** - atomic contact energies (20 atom types, all heavy atoms in a residue belong to one type)
-**aace167** - atomic contact energies (167 atom types, all heavy atoms in a residue belong to different types)
+aace18    - atomic contact energies (18 atom types from Ref. [2])
+aace20    - atomic contact energies (20 types, all heavy atoms in a residue belong to one type)
+aace167   - atomic contact energies (167 types, all heavy atoms in a residue belong to different types)
+rrce20    - contact energies between residue centroids
 ```
 
-
-### Description
-
-Residue-residue and atom-atom contact energies were derived by maximizing the 
-probability of observing native sequences in a non-redundant set of 6,319 
-high-res protein structures. The optimization task was formulated as an inverse 
-statistical mechanics problem applied to the Potts model. Its solution by 
-pseudo-likelihood maximization provides consistent estimates of coupling 
-constants at atomic and residue levels.
-
+`aace18` with default parameters should be sufficient for most applications.
 
 ## Installation
 
-### Program download and compilation
+#### Program download and compilation
 
 ```
 git clone https://github.com/gjoni/aace-rrce
@@ -31,9 +22,24 @@ cd aace-rrce
 make
 ```
 
-### Download databases (optional)
+#### Download databases (optional)
+```
+wget http://vakser.bioinformatics.ku.edu/resources/ipot/download/ipot_data.tar.gz
+tar xf ipot_data.tar.gz
+```
 
 ## Usage
+
+By the example of `aace18` - other programs follow similar logic:
+
+```
+Usage:   ./aace18 [-option] [argument]
+
+Options:  -r receptor.pdb \  # PDB file with receptor's coordinates
+          -l ligand.pdb \    # (optional) PDB file with ligand's coordinates
+          -t table.txt \     # (optional) aace18 contact potential table 
+          -d dmax            # (optional) contact distance, default dmax=6.8A
+```
 
 ### Calculate atom-atom energies
 
