@@ -47,7 +47,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CXX) $(CXXFLAGS) $(INCDIRS) -c -o $@ $<
 
 clean:
-	rm $(OBJS) aace18 aace20 aace167
+	rm $(OBJS) aace18 aace20 aace167 rrce20
 	rmdir $(OBJDIR)
 	rm -rf aace || true
 	rm -rf rrce || true

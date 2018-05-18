@@ -226,8 +226,7 @@ int AACE::ReadGroups(const char *name) {
 				if (it == TYPE_IDX.end()) {
 					TYPE_IDX[type] = n;
 					//printf("%s %d\n", type, n);
-					t = n;
-					n++;
+					t = n++;
 				} else {
 					t = it->second;
 				}
@@ -251,9 +250,8 @@ int AACE::ReadGroups(const GROUPS_TYPE &GROUPS) {
 		int t;
 		if (it == TYPE_IDX.end()) {
 			TYPE_IDX[g.second] = n;
-			//printf("%s %d\n", type, n);
+			//printf("%s %d\n", g.second.c_str(), n);
 			t = n++;
-			//n++;
 		} else {
 			t = it->second;
 		}
@@ -283,16 +281,11 @@ int AACE::ReadCouplings(const char *name) {
 		pch = strtok(buf, " "); /* label */
 		pch = strtok(NULL, " "); /* local field */
 		h[i] = atof(pch);
-//		printf("%.5e, ", h[i]);
-		printf("{");
 		for (int j = 0; j < N; j++) {
 			pch = strtok(NULL, " ");
 			J[i][j] = atof(pch);
-			printf("%.5e, ", J[i][j]);
 		}
-		printf("}, \n");
 	}
-//	printf("\n");
 	fclose(F);
 
 	return 0;
