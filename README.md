@@ -24,13 +24,13 @@ make
 
 #### Download contact potentials database (optional)
 ```
-wget http://vakser.bioinformatics.ku.edu/resources/ipot/download/ipot_data.tar.gz
+wget http://vakser.compbio.ku.edu/main/downloads/ipot_data.tar.gz
 tar xf ipot_data.tar.gz
 ```
 
 ## Usage
 
-By the example of `aace18` (other programs follow similar logic):
+By the example of `aace18` (other programs have the same interface):
 
 ```
 Usage:   ./aace18 [-option] [argument]
@@ -65,7 +65,7 @@ Options:  -r receptor.pdb \  # PDB file with receptor's coordinates
 
 ## References
 [1] I Anishchenko, PJ Kundrotas, IA Vakser. Contact potential for structure prediction 
-of proteins and protein complexes from Potts model. (2018) In preparation
+of proteins and protein complexes from Potts model. (2018) Accepted
 
 [2] C Zhang, G Vasmatzis, JL Cornette, C DeLisi. Determination of atomic 
 desolvation energies from the structures of crystallized proteins. (1997) 
