@@ -65,9 +65,10 @@ Options:  -r receptor.pdb \  # PDB file with receptor's coordinates
 
 ## References
 [1] I Anishchenko, PJ Kundrotas, IA Vakser. Contact potential for structure prediction 
-of proteins and protein complexes from Potts model. (2018) [DOI: 10.1016/j.bpj.2018.07.035](https://doi.org/10.1016/j.bpj.2018.07.035)
+of proteins and protein complexes from Potts model. (2018) 
+[DOI: 10.1016/j.bpj.2018.07.035](https://doi.org/10.1016/j.bpj.2018.07.035)
 
 [2] C Zhang, G Vasmatzis, JL Cornette, C DeLisi. Determination of atomic 
 desolvation energies from the structures of crystallized proteins. (1997) 
-J Mol Biol. 267(3): 707-6
+[J Mol Biol. 267(3): 707-6](https://doi.org/10.1006/jmbi.1996.0859)
 
