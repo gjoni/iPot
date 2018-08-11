@@ -65,7 +65,7 @@ Options:  -r receptor.pdb \  # PDB file with receptor's coordinates
 
 ## References
 [1] I Anishchenko, PJ Kundrotas, IA Vakser. Contact potential for structure prediction 
-of proteins and protein complexes from Potts model. (2018) 
+of proteins and protein complexes from Potts model. (2018) Biophys J.
 [DOI: 10.1016/j.bpj.2018.07.035](https://doi.org/10.1016/j.bpj.2018.07.035)
 
 [2] C Zhang, G Vasmatzis, JL Cornette, C DeLisi. Determination of atomic 
