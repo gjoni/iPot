@@ -475,11 +475,6 @@ void Chain::SetKD() {
 		for (int j = 0; j < residue[i].nAtoms; j++) {
 			A = &(residue[i].atom[j]);
 
-			/* exclude hydrogens from the tree */
-			if (A->type == 'H') {
-				continue;
-			}
-
 			kd_insert3(kd, A->x, A->y, A->z, atom + idx);
 			idx++;
 		}
