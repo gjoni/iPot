@@ -61,6 +61,7 @@ Options:  -r receptor.pdb \  # PDB file with receptor's coordinates
 
  - [Vakser Lab](http://vakser.compbio.ku.edu/main/)
  - [kdtree library](https://github.com/jtsiomb/kdtree) by John Tsiombikas
+ - [ipot_solver](https://github.com/gjoni/ipot_solver) - inverse Potts solver
 
 
 ## References
