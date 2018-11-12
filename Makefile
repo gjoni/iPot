@@ -1,6 +1,6 @@
 
 CXX=g++
-CXXFLAGS += -O3 -mtune=native -Wall -pedantic -std=c++0x
+CXXFLAGS += -O3 -mtune=native -Wall -pedantic -std=c++0x -Wno-unused-result
 CXXLIBS =
 INCDIRS =
 LIBDIRS =
